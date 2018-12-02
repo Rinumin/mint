@@ -5,7 +5,6 @@ import haverDistance from './myHaverSine.js';
 //IMPORT AF VORES KOMPONENTER
 import Baggrund from './pagedraw/baggrund.js';
 
-
 //HARDCODEDE LOKATIONER   ||   stedets navn, kunstner, koordinater
 let Rust = {name : 'RUST', description:' Her spiller RexLife',coords:{latitude:55.691226 , longitude :12.559283 }}; /// A sample target location
 let mayhem = {name : 'MAYHEM', description:'Her spiller XX kunstner',coords:{latitude:55.707521 , longitude :12.553489 }};
@@ -25,19 +24,17 @@ class App extends Component {
       venue: ''
     
     };
-  this.e = null;
-  this.geoError = this.geoError.bind(this);
-  this.getMyPosition = this.getMyPosition.bind(this);
+    this.e = null;
+    this.geoError = this.geoError.bind(this);
+    this.getMyPosition = this.getMyPosition.bind(this);
   }
 
-  geoError(err)
-  {
+  geoError(err) {
     this.e = err.message;
   }
 
   // Hver lokation i forhold til egen position
-  getMyPosition(position)
-  {
+  getMyPosition(position) {
     let RustDistance = haverDistance(position.coords.latitude,Rust.coords.latitude,position.coords.longitude,Rust.coords.longitude);
     let mayhemDistance = haverDistance(position.coords.latitude,mayhem.coords.latitude,position.coords.longitude,mayhem.coords.longitude);
     let DrKoncerthusDistance = haverDistance(position.coords.latitude,DrKoncerthus.coords.latitude,position.coords.longitude,DrKoncerthus.coords.longitude);
@@ -64,6 +61,7 @@ class App extends Component {
     // Her viser vi spillestedet, der er tættest på. 
     console.log(closest, closestVenue)
     alert(closestVenue.name) // popup her!!
+
     this.setState({
       distance: closest,
       latitude: closestVenue.coords.latitude,
@@ -76,19 +74,17 @@ class App extends Component {
   render() {
     return (
      <div>
-          <MyText textToDisplay = {'My Latitude :' + this.state.latitude}/>
-           <MyText textToDisplay = {'MyLongitude: ' +  this.state.longitude} />
-           <MyText textToDisplay = {'Distance til målet i meter:' +Math.round(1000*this.state.distance)}/>
-           <MyText textToDisplay = { 'Venue: ' + this.state.venue}/>
+      <MyText textToDisplay = {'My Latitude :' + this.state.latitude}/>
+        <MyText textToDisplay = {'MyLongitude: ' +  this.state.longitude} />
+        <MyText textToDisplay = {'Distance til målet i meter:' +Math.round(1000*this.state.distance)}/>
+        <MyText textToDisplay = { 'Venue: ' + this.state.venue}/>
 
-          <Baggrund 
-           firsttext={'My Latitude :' + this.state.latitude}
-           MyButton= {'Klik for position'} 
-           GetMyPosition = {this.getMyPosition} 
-           GeoError = {this.geoError} 
-           />
-           
-
+      <Baggrund 
+        firsttext={'My Latitude :' + this.state.latitude}
+        MyButton= {'Klik for position'} 
+        GetMyPosition = {this.getMyPosition} 
+        GeoError = {this.geoError} 
+        />
       </div>
     );
   }
